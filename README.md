@@ -1,90 +1,81 @@
-# Biblical Text Mining
+# BibleText Mining
 
-Proyecto desarrollado para el Laboratorio 2 de la asignatura **Programación Científica** de la **Universidad Católica del Norte**.
+## Procesamiento de Lenguaje Natural aplicado al análisis de un corpus bíblico
 
-## Descripción
 
-Este proyecto implementa un sistema completo de análisis del texto bíblico utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (Natural Language Processing, NLP). Se trabaja sobre el corpus de la **Biblia Reina-Valera 1960** con el objetivo de estudiar patrones lingüísticos, analizar similitud entre textos, construir modelos de clasificación y generar texto de manera probabilística.
+# Resumen
 
-El sistema integra distintas etapas del procesamiento de texto, incluyendo preprocesamiento, representación vectorial, análisis exploratorio, recuperación de información, clasificación supervisada, modelos de lenguaje basados en n-gramas y análisis de sentimiento.
+Este proyecto implementa un sistema de análisis computacional sobre un corpus bíblico utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (Natural Language Processing, NLP). El desarrollo considera la construcción de un pipeline completo que abarca desde el preprocesamiento del texto hasta la representación vectorial de documentos, recuperación de información, clasificación automática, generación probabilística de texto y análisis de sentimiento.
 
-El desarrollo se realizó siguiendo un enfoque de **Programación Orientada a Objetos**, privilegiando la modularidad, reutilización de código y facilidad de mantenimiento.
+El sistema fue desarrollado siguiendo un enfoque de Programación Orientada a Objetos con el propósito de mantener una arquitectura modular, reutilizable y fácilmente extensible.
 
----
-
-# Tabla de Contenidos
-
-- Descripción
-- Objetivos
-- Funcionalidades
-- Tecnologías utilizadas
-- Estructura del proyecto
-- Instalación
-- Ejecución
-- Flujo del sistema
-- Modelos implementados
-- Resultados
-- Discusión
-- Cumplimiento del laboratorio
-- Trabajo futuro
-- Integrantes
-- Licencia
+La implementación utiliza como corpus la **Biblia Reina-Valera 1960**, permitiendo estudiar el comportamiento lingüístico de un conjunto de datos compuesto por miles de versículos distribuidos en distintos libros, capítulos y contextos narrativos.
 
 ---
 
 # Objetivos
 
-El proyecto tiene como principales objetivos:
+El proyecto tiene como finalidad implementar un conjunto de técnicas clásicas de minería de texto y procesamiento de lenguaje natural sobre un corpus bíblico.
 
-- Implementar un pipeline completo de preprocesamiento de texto.
-- Construir una representación vectorial mediante TF-IDF.
-- Implementar manualmente la similitud del coseno.
-- Analizar relaciones entre libros y versículos mediante técnicas de visualización.
-- Construir un motor de búsqueda semántico.
-- Clasificar automáticamente versículos según su libro de origen.
-- Generar texto utilizando modelos probabilísticos basados en n-gramas.
-- Analizar el sentimiento presente en el corpus bíblico.
+Los objetivos específicos son los siguientes:
+
+- Implementar un pipeline completo de preprocesamiento textual.
+- Construir manualmente la representación vectorial TF-IDF.
+- Implementar el cálculo de similitud mediante el coseno.
+- Analizar estadísticamente el corpus mediante distintas visualizaciones.
+- Aplicar reducción de dimensionalidad utilizando Principal Component Analysis (PCA).
+- Desarrollar un motor de búsqueda semántico basado en similitud textual.
+- Entrenar un clasificador capaz de identificar el libro al que pertenece un versículo.
+- Implementar modelos probabilísticos de lenguaje basados en N-Gram.
+- Analizar el comportamiento del sentimiento presente en el corpus.
 
 ---
 
-# Funcionalidades
+# Características del sistema
+
+El sistema implementa las siguientes funcionalidades.
 
 ## Preprocesamiento
 
-- Conversión del texto a minúsculas.
+El pipeline de procesamiento realiza automáticamente:
+
+- Conversión a minúsculas.
 - Eliminación de signos de puntuación.
-- Eliminación de números y caracteres especiales.
+- Eliminación de caracteres especiales y números.
 - Tokenización.
-- Eliminación de stopwords.
+- Eliminación de palabras vacías (stopwords).
 - Construcción del vocabulario.
-- Cálculo de frecuencias de palabras.
+- Cálculo de frecuencias.
 
 ---
 
 ## Representación vectorial
 
-Se implementa manualmente el algoritmo TF-IDF utilizando los conceptos de:
+La representación de documentos se desarrolla mediante una implementación propia del algoritmo TF-IDF.
+
+Se implementan manualmente los siguientes componentes:
 
 - Term Frequency (TF)
 - Inverse Document Frequency (IDF)
 - TF-IDF
 
-No se utiliza `TfidfVectorizer` de Scikit-Learn, cumpliendo los requerimientos establecidos en el laboratorio.
+No se utiliza la implementación disponible en Scikit-Learn, cumpliendo las restricciones establecidas en el laboratorio.
 
 ---
 
-## Motor de búsqueda semántico
+## Recuperación de información
 
-El sistema permite ingresar una consulta libre y recuperar los **K versículos más similares** utilizando:
+El proyecto incorpora un motor de búsqueda semántico que recibe una consulta textual y devuelve los K versículos más similares del corpus.
 
-- Representación TF-IDF.
-- Similitud del coseno implementada manualmente.
+La similitud entre documentos se calcula mediante una implementación propia de la similitud del coseno.
 
 ---
 
 ## Clasificación automática
 
-Se implementa un clasificador basado en **Multinomial Naive Bayes** para predecir el libro al que pertenece un versículo.
+Se implementa un clasificador supervisado utilizando el algoritmo **Multinomial Naive Bayes**.
+
+El modelo predice el libro de origen de un versículo utilizando exclusivamente su contenido textual.
 
 La evaluación considera:
 
@@ -93,42 +84,29 @@ La evaluación considera:
 
 ---
 
-## Modelos de lenguaje
+## Modelos probabilísticos de lenguaje
 
-Se implementan los siguientes modelos probabilísticos:
+Se desarrollan cuatro modelos de generación automática de texto.
 
 - Unigrama
 - Bigrama
 - Trigrama
 - Cuatrigrama
 
-Cada modelo permite generar texto sintético a partir de una palabra inicial seleccionada por el usuario.
+Cada modelo genera secuencias textuales a partir de una palabra inicial definida por el usuario.
 
 ---
 
 ## Análisis de sentimiento
 
-Se calcula la polaridad de cada versículo utilizando TextBlob y posteriormente se agregan los resultados por libro para analizar el comportamiento emocional del corpus.
-
----
-
-# Visualizaciones
-
-El sistema genera automáticamente diversas visualizaciones para facilitar el análisis del corpus.
-
-- Heatmap de similitud entre libros.
-- Distribución de longitud de versículos.
-- Frecuencia de palabras.
-- Nube de palabras.
-- Proyección bidimensional mediante PCA.
-- Evolución del sentimiento promedio por libro.
+El sistema calcula la polaridad emocional de cada versículo mediante TextBlob y posteriormente agrega los resultados por libro para analizar la evolución del sentimiento dentro del corpus.
 
 ---
 
 # Tecnologías utilizadas
 
-| Herramienta | Propósito |
-|-------------|-----------|
+| Tecnología | Descripción |
+|------------|-------------|
 | Python | Lenguaje principal |
 | Pandas | Manipulación de datos |
 | NumPy | Cálculo numérico |
@@ -140,10 +118,10 @@ El sistema genera automáticamente diversas visualizaciones para facilitar el an
 
 ---
 
-# Estructura del proyecto
+# Arquitectura del proyecto
 
 ```
-biblical-text-mining/
+bible-text-mining/
 │
 ├── data/
 │   └── bible.csv
@@ -157,131 +135,162 @@ biblical-text-mining/
 │   ├── classifier.py
 │   ├── ngram.py
 │   ├── sentiment.py
-│   └── main.py
 │
-├── results/
-│
+├── Informe_Taller2.pdf
+├── main.py
 ├── README.md
-├── requirements.txt
-└── .gitignore
+├── diagrama_de_clases.png
+├── heatmap_libros.png
+├── histograma_versiculos.png
+├── pca_versiculos.png
+└── sentimiento_libros.png
 ```
+
+---
+
+# Diagrama de clases
+
+La siguiente figura resume la arquitectura orientada a objetos implementada durante el desarrollo.
+
+<p align="center">
+<img src="diagrama_de_clases.png" width="900">
+</p>
 
 ---
 
 # Instalación
 
-Clonar el repositorio:
+Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/biblical-text-mining.git
+git clone https://github.com/carlosbuguenocortes/bible-text-mining.git
 ```
 
-Ingresar al directorio del proyecto:
+Ingresar al directorio del proyecto
 
 ```bash
-cd biblical-text-mining
+cd bible-text-mining
 ```
 
-Instalar las dependencias:
+Instalar las dependencias
 
 ```bash
-pip install -r requirements.txt
+pip install pandas numpy matplotlib scikit-learn textblob
 ```
 
 ---
 
 # Ejecución
 
-Ejecutar el programa principal:
+Ejecutar el programa principal
 
 ```bash
-python src/main.py
+python main.py
 ```
 
 ---
 
-# Flujo del sistema
+# Flujo general del sistema
 
 ```
-Carga del corpus
-        │
-        ▼
+Corpus bíblico
+      │
+      ▼
 Preprocesamiento
-        │
-        ▼
-Construcción del modelo TF-IDF
-        │
-        ▼
-Visualización y análisis exploratorio
-        │
-        ├── PCA
-        ├── Heatmap
-        ├── Frecuencia de palabras
-        │
-        ▼
-Motor de búsqueda semántico
-        │
-        ▼
-Clasificación automática
-        │
-        ▼
+      │
+      ▼
+Representación TF-IDF
+      │
+      ▼
+Análisis exploratorio
+      │
+      ├── Frecuencia de palabras
+      ├── Heatmap
+      ├── PCA
+      │
+      ▼
+Motor de búsqueda
+      │
+      ▼
+Clasificación
+      │
+      ▼
 Modelos N-Gram
-        │
-        ▼
+      │
+      ▼
 Análisis de sentimiento
 ```
 
 ---
 
-# Resultados
+# Resultados experimentales
 
-| Tamaño del corpus | Accuracy |
-|------------------:|---------:|
+El clasificador fue evaluado utilizando distintos tamaños de corpus con el propósito de estudiar el comportamiento del modelo frente al incremento del número de clases.
+
+| Corpus | Accuracy |
+|---------|----------|
 | 2.000 versículos | 0.84 |
 | 10.000 versículos | 0.30 |
 | Corpus completo | 0.38 |
 
-Los resultados muestran que el rendimiento del clasificador disminuye conforme aumenta la cantidad de clases y la complejidad del problema. La similitud existente entre distintos libros genera una importante superposición en el espacio de características, dificultando la correcta clasificación de los versículos.
+Los resultados muestran una disminución progresiva del rendimiento conforme aumenta el tamaño del corpus. Este comportamiento se explica por el incremento del número de clases, la elevada similitud léxica existente entre distintos libros y la superposición del espacio vectorial generado mediante TF-IDF.
+
+---
+
+# Resultados gráficos
+
+## Heatmap de similitud entre libros
+
+<p align="center">
+<img src="heatmap_libros.png" width="850">
+</p>
+
+---
+
+## Distribución de longitud de versículos
+
+<p align="center">
+<img src="histograma_versiculos.png" width="850">
+</p>
+
+---
+
+## Proyección bidimensional mediante PCA
+
+<p align="center">
+<img src="pca_versiculos.png" width="850">
+</p>
+
+---
+
+## Sentimiento promedio por libro
+
+<p align="center">
+<img src="sentimiento_libros.png" width="850">
+</p>
 
 ---
 
 # Discusión
 
-Durante el desarrollo se observaron las siguientes características:
+Los resultados obtenidos evidencian que las técnicas clásicas de Procesamiento de Lenguaje Natural permiten representar adecuadamente las características estadísticas del corpus y recuperar documentos relacionados mediante similitud textual.
 
-- TF-IDF representa correctamente la importancia estadística de las palabras dentro del corpus.
-- La similitud del coseno permite recuperar versículos relacionados con una consulta textual.
-- Naive Bayes ofrece un buen desempeño en conjuntos de datos pequeños, pero su rendimiento disminuye al aumentar la cantidad de libros.
-- Los modelos n-gram generan secuencias con coherencia local, aunque presentan repetición y pérdida de contexto en textos largos.
-- El análisis de sentimiento presenta limitaciones debido al lenguaje religioso, el contexto histórico y las características propias de la traducción utilizada.
+No obstante, también se observaron limitaciones importantes. La representación TF-IDF no incorpora información semántica del lenguaje, por lo que documentos con significados similares pueden presentar baja similitud cuando utilizan vocabulario diferente.
 
----
+Asimismo, el rendimiento del clasificador disminuye considerablemente al aumentar la cantidad de libros presentes en el corpus, debido a la superposición existente entre las representaciones vectoriales.
 
-# Cumplimiento del laboratorio
-
-| Requerimiento | Estado |
-|---------------|:------:|
-| Preprocesamiento | Cumplido |
-| Implementación manual de TF-IDF | Cumplido |
-| Implementación manual de similitud del coseno | Cumplido |
-| Heatmap de similitud entre libros | Cumplido |
-| Visualización mediante PCA | Cumplido |
-| Motor de búsqueda semántico | Cumplido |
-| Clasificación automática | Cumplido |
-| Modelos n-gram | Cumplido |
-| Análisis de sentimiento | Cumplido |
+Finalmente, los modelos N-Gram generan secuencias con una adecuada coherencia local, aunque presentan repetición de palabras y pérdida de contexto en textos de mayor longitud.
 
 ---
 
-# Trabajo futuro
+# Limitaciones
 
-Como posibles extensiones del proyecto se proponen:
+Las principales limitaciones identificadas durante el desarrollo corresponden a:
 
-- Incorporar representaciones distribucionales como Word2Vec o FastText.
-- Evaluar modelos basados en Transformers (BERT o BETO).
-- Implementar modelado de tópicos mediante LDA.
-- Desarrollar una interfaz gráfica para facilitar la interacción con el sistema.
-- Optimizar el motor de búsqueda mediante índices invertidos.
+- TF-IDF representa únicamente información estadística del texto.
+- Naive Bayes presenta una disminución de rendimiento al aumentar el número de clases.
+- Los modelos N-Gram dependen fuertemente del corpus de entrenamiento.
+- El análisis de sentimiento presenta limitaciones al trabajar con textos religiosos y traducciones antiguas.
 
 ---
 
@@ -290,9 +299,3 @@ Como posibles extensiones del proyecto se proponen:
 - Carlos Bugueño
 - Constantino Bekios
 - Vicente Moyano
-
----
-
-# Licencia
-
-Este proyecto fue desarrollado exclusivamente con fines académicos para la asignatura **Programación Científica** de la **Universidad Católica del Norte**.
