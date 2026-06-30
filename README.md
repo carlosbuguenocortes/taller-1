@@ -1,167 +1,298 @@
-# 📖 Biblical Text Mining
+# Biblical Text Mining
 
-Proyecto desarrollado en el marco del Laboratorio 2 de Procesamiento de Lenguaje Natural.
+Proyecto desarrollado para el Laboratorio 2 de la asignatura **Programación Científica** de la **Universidad Católica del Norte**.
 
----
+## Descripción
 
-## 🚀 Descripción
+Este proyecto implementa un sistema completo de análisis del texto bíblico utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (Natural Language Processing, NLP). Se trabaja sobre el corpus de la **Biblia Reina-Valera 1960** con el objetivo de estudiar patrones lingüísticos, analizar similitud entre textos, construir modelos de clasificación y generar texto de manera probabilística.
 
-Este proyecto implementa un sistema completo de análisis del texto bíblico utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (NLP). Se trabaja sobre el corpus de la Biblia Reina-Valera 1960 en español con el objetivo de estudiar patrones lingüísticos, analizar similitud entre textos y evaluar el rendimiento de distintos modelos.
+El sistema integra distintas etapas del procesamiento de texto, incluyendo preprocesamiento, representación vectorial, análisis exploratorio, recuperación de información, clasificación supervisada, modelos de lenguaje basados en n-gramas y análisis de sentimiento.
 
-El sistema desarrollado permite abordar distintas tareas fundamentales de NLP, incluyendo representación vectorial de documentos, clasificación automática, recuperación de información, generación de texto y análisis de sentimiento.
-
-Además, se evalúa el impacto del tamaño del dataset en el desempeño de los modelos, permitiendo comprender sus limitaciones en escenarios reales.
+El desarrollo se realizó siguiendo un enfoque de **Programación Orientada a Objetos**, privilegiando la modularidad, reutilización de código y facilidad de mantenimiento.
 
 ---
 
-## 📊 Funcionalidades principales
+# Tabla de Contenidos
 
-- 🔍 Representación de texto mediante TF-IDF  
-- 🔎 Búsqueda semántica utilizando similitud del coseno  
-- 🤖 Clasificación de versículos con Naive Bayes  
-- 🧠 Generación de texto usando modelos n-gram:
-  - Bigrama  
-  - Trigrama  
-  - Cuatrigrama  
-- 📉 Reducción de dimensionalidad mediante PCA  
-- 📊 Visualización de datos:
-  - Heatmap de similitud entre libros  
-  - Distribución de longitud de versículos  
-  - Proyección PCA  
-- 💬 Análisis de sentimiento por libro  
+- Descripción
+- Objetivos
+- Funcionalidades
+- Tecnologías utilizadas
+- Estructura del proyecto
+- Instalación
+- Ejecución
+- Flujo del sistema
+- Modelos implementados
+- Resultados
+- Discusión
+- Cumplimiento del laboratorio
+- Trabajo futuro
+- Integrantes
+- Licencia
 
 ---
 
-## 📁 Estructura del proyecto
-bible-text-mining/
+# Objetivos
+
+El proyecto tiene como principales objetivos:
+
+- Implementar un pipeline completo de preprocesamiento de texto.
+- Construir una representación vectorial mediante TF-IDF.
+- Implementar manualmente la similitud del coseno.
+- Analizar relaciones entre libros y versículos mediante técnicas de visualización.
+- Construir un motor de búsqueda semántico.
+- Clasificar automáticamente versículos según su libro de origen.
+- Generar texto utilizando modelos probabilísticos basados en n-gramas.
+- Analizar el sentimiento presente en el corpus bíblico.
+
+---
+
+# Funcionalidades
+
+## Preprocesamiento
+
+- Conversión del texto a minúsculas.
+- Eliminación de signos de puntuación.
+- Eliminación de números y caracteres especiales.
+- Tokenización.
+- Eliminación de stopwords.
+- Construcción del vocabulario.
+- Cálculo de frecuencias de palabras.
+
+---
+
+## Representación vectorial
+
+Se implementa manualmente el algoritmo TF-IDF utilizando los conceptos de:
+
+- Term Frequency (TF)
+- Inverse Document Frequency (IDF)
+- TF-IDF
+
+No se utiliza `TfidfVectorizer` de Scikit-Learn, cumpliendo los requerimientos establecidos en el laboratorio.
+
+---
+
+## Motor de búsqueda semántico
+
+El sistema permite ingresar una consulta libre y recuperar los **K versículos más similares** utilizando:
+
+- Representación TF-IDF.
+- Similitud del coseno implementada manualmente.
+
+---
+
+## Clasificación automática
+
+Se implementa un clasificador basado en **Multinomial Naive Bayes** para predecir el libro al que pertenece un versículo.
+
+La evaluación considera:
+
+- Accuracy.
+- Matriz de confusión.
+
+---
+
+## Modelos de lenguaje
+
+Se implementan los siguientes modelos probabilísticos:
+
+- Unigrama
+- Bigrama
+- Trigrama
+- Cuatrigrama
+
+Cada modelo permite generar texto sintético a partir de una palabra inicial seleccionada por el usuario.
+
+---
+
+## Análisis de sentimiento
+
+Se calcula la polaridad de cada versículo utilizando TextBlob y posteriormente se agregan los resultados por libro para analizar el comportamiento emocional del corpus.
+
+---
+
+# Visualizaciones
+
+El sistema genera automáticamente diversas visualizaciones para facilitar el análisis del corpus.
+
+- Heatmap de similitud entre libros.
+- Distribución de longitud de versículos.
+- Frecuencia de palabras.
+- Nube de palabras.
+- Proyección bidimensional mediante PCA.
+- Evolución del sentimiento promedio por libro.
+
+---
+
+# Tecnologías utilizadas
+
+| Herramienta | Propósito |
+|-------------|-----------|
+| Python | Lenguaje principal |
+| Pandas | Manipulación de datos |
+| NumPy | Cálculo numérico |
+| Matplotlib | Visualización |
+| Scikit-Learn | PCA y clasificación |
+| NLTK | Procesamiento de texto |
+| TextBlob | Análisis de sentimiento |
+| NetworkX | Grafos de coocurrencia |
+
+---
+
+# Estructura del proyecto
+
+```
+biblical-text-mining/
+│
 ├── data/
 │   └── bible.csv
+│
 ├── src/
-│   ├── preprocesamiento.py
+│   ├── dataset.py
+│   ├── preprocessor.py
 │   ├── tfidf.py
-│   ├── buscador.py
+│   ├── visualization.py
+│   ├── search_engine.py
+│   ├── classifier.py
 │   ├── ngram.py
-│   ├── experimentos.py
-│   └── utils.py
-├── main.py
-└── README.md
+│   ├── sentiment.py
+│   └── main.py
+│
+├── results/
+│
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
 
 ---
 
-## ⚙️ Requisitos
+# Instalación
 
-Para ejecutar el proyecto se requiere:
-
-- Python 3.8 o superior  
-- pip (gestor de paquetes)
-
-### Instalación de dependencias
+Clonar el repositorio:
 
 ```bash
-pip install pandas numpy matplotlib scikit-learn textblob
+git clone https://github.com/usuario/biblical-text-mining.git
+```
 
+Ingresar al directorio del proyecto:
 
-📥 Clonar el repositorio
-Para obtener el proyecto desde GitHub:
-Shellgit clone https://github.com/carlosbuguenocortes/bible-text-mining.gitcd bible-text-mining``Show more lines
+```bash
+cd biblical-text-mining
+```
 
-▶️ Ejecución
-Para ejecutar el sistema:
-Shellpython main.pyShow more lines
+Instalar las dependencias:
 
-🔄 Flujo del programa
-El sistema realiza automáticamente las siguientes etapas:
+```bash
+pip install -r requirements.txt
+```
 
-Carga del dataset bíblico
-Limpieza del texto
-Preprocesamiento (tokenización y eliminación de stopwords)
-Generación de visualizaciones del corpus
+---
+
+# Ejecución
+
+Ejecutar el programa principal:
+
+```bash
+python src/main.py
+```
+
+---
+
+# Flujo del sistema
+
+```
+Carga del corpus
+        │
+        ▼
+Preprocesamiento
+        │
+        ▼
 Construcción del modelo TF-IDF
-Reducción de dimensionalidad mediante PCA
-Búsqueda semántica
-Clasificación de versículos con Naive Bayes
-Generación de texto con modelos n-gram
-Análisis de sentimiento
-
-
-📈 Resultados obtenidos
-El sistema fue evaluado con distintos tamaños de dataset:
-
-
-DatasetAccuracy2000 versículos~0.8410000 versículos~0.3031102 versículos~0.38
-Interpretación de resultados
-Se observa que el rendimiento del clasificador disminuye a medida que aumenta la complejidad del problema.
-Esto se debe principalmente a:
-
-Incremento en el número de clases
-Mayor similitud entre textos
-Alta superposición en el espacio de características
-
-Esto dificulta la correcta separación entre clases utilizando modelos simples.
-
-🔎 Ejemplo de búsqueda semántica
-Consulta utilizada:
-Dios creó la tierra
-
-Resultados esperados
-
-Recuperación de versículos relacionados temáticamente
-Coincidencia en términos clave como Dios y tierra
-Aparición de textos coherentes como pasajes del libro de Génesis
-
-Interpretación
-El modelo TF-IDF permite identificar similitud entre textos basándose en la relevancia de términos. Sin embargo, presenta limitaciones al no comprender el significado semántico profundo del lenguaje.
-
-🧠 Modelos implementados
-TF-IDF
-Representa los textos como vectores numéricos, permitiendo calcular similitud entre documentos mediante similitud del coseno.
-
-Clasificador Naive Bayes
-Se utiliza para clasificar versículos según su libro de origen. Su desempeño es adecuado en datasets simples, pero disminuye en escenarios más complejos.
-
+        │
+        ▼
+Visualización y análisis exploratorio
+        │
+        ├── PCA
+        ├── Heatmap
+        ├── Frecuencia de palabras
+        │
+        ▼
+Motor de búsqueda semántico
+        │
+        ▼
+Clasificación automática
+        │
+        ▼
 Modelos N-Gram
-Permiten generar texto en base a probabilidades de secuencias de palabras:
+        │
+        ▼
+Análisis de sentimiento
+```
 
-Bigrama → secuencias de 2 palabras
-Trigrama → secuencias de 3 palabras
-Cuatrigrama → secuencias de 4 palabras
+---
 
-A mayor contexto, se obtiene una mejor coherencia local del texto generado.
+# Resultados
 
-Análisis de Sentimiento
-El análisis se realiza utilizando TextBlob, calculando la polaridad del texto.
-Se observa que el corpus presenta valores cercanos a cero, lo que indica una predominancia de lenguaje neutral.
+| Tamaño del corpus | Accuracy |
+|------------------:|---------:|
+| 2.000 versículos | 0.84 |
+| 10.000 versículos | 0.30 |
+| Corpus completo | 0.38 |
 
-📊 Visualizaciones
-El sistema genera automáticamente:
+Los resultados muestran que el rendimiento del clasificador disminuye conforme aumenta la cantidad de clases y la complejidad del problema. La similitud existente entre distintos libros genera una importante superposición en el espacio de características, dificultando la correcta clasificación de los versículos.
 
-Heatmap de similitud entre libros
-Histograma de longitud de versículos
-Proyección PCA de los datos
-Gráfico de sentimiento promedio por libro
+---
 
-Estas visualizaciones permiten:
+# Discusión
 
-Analizar la estructura del corpus
-Identificar similitudes entre distintos libros
-Evidenciar la dificultad de separación entre clases
-Comprender características globales del lenguaje
+Durante el desarrollo se observaron las siguientes características:
 
+- TF-IDF representa correctamente la importancia estadística de las palabras dentro del corpus.
+- La similitud del coseno permite recuperar versículos relacionados con una consulta textual.
+- Naive Bayes ofrece un buen desempeño en conjuntos de datos pequeños, pero su rendimiento disminuye al aumentar la cantidad de libros.
+- Los modelos n-gram generan secuencias con coherencia local, aunque presentan repetición y pérdida de contexto en textos largos.
+- El análisis de sentimiento presenta limitaciones debido al lenguaje religioso, el contexto histórico y las características propias de la traducción utilizada.
 
-📘 Conclusiones
-El proyecto demuestra que las técnicas clásicas de Procesamiento de Lenguaje Natural permiten analizar de manera efectiva un corpus textual complejo como la Biblia.
-Sin embargo, se evidencian importantes limitaciones:
+---
 
-El rendimiento del clasificador disminuye al aumentar la complejidad del dataset
-Existe una alta superposición entre clases
-TF-IDF no captura relaciones semánticas profundas
-El análisis de sentimiento presenta baja capacidad discriminativa
+# Cumplimiento del laboratorio
 
-Estos resultados sugieren que problemas más complejos requieren métodos más avanzados, como modelos basados en aprendizaje profundo o representaciones semánticas más sofisticadas.
-Finalmente, el trabajo permite comprender tanto el potencial como las limitaciones de las técnicas clásicas de NLP en escenarios reales.
+| Requerimiento | Estado |
+|---------------|:------:|
+| Preprocesamiento | Cumplido |
+| Implementación manual de TF-IDF | Cumplido |
+| Implementación manual de similitud del coseno | Cumplido |
+| Heatmap de similitud entre libros | Cumplido |
+| Visualización mediante PCA | Cumplido |
+| Motor de búsqueda semántico | Cumplido |
+| Clasificación automática | Cumplido |
+| Modelos n-gram | Cumplido |
+| Análisis de sentimiento | Cumplido |
 
-👥 Integrantes
+---
 
-Carlos Bugueño
-Constantino Bekios
-Vicente Moyano
+# Trabajo futuro
+
+Como posibles extensiones del proyecto se proponen:
+
+- Incorporar representaciones distribucionales como Word2Vec o FastText.
+- Evaluar modelos basados en Transformers (BERT o BETO).
+- Implementar modelado de tópicos mediante LDA.
+- Desarrollar una interfaz gráfica para facilitar la interacción con el sistema.
+- Optimizar el motor de búsqueda mediante índices invertidos.
+
+---
+
+# Integrantes
+
+- Carlos Bugueño
+- Constantino Bekios
+- Vicente Moyano
+
+---
+
+# Licencia
+
+Este proyecto fue desarrollado exclusivamente con fines académicos para la asignatura **Programación Científica** de la **Universidad Católica del Norte**.
